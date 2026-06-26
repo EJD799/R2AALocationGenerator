@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R2AA Location Generator</title>
+</head>
+
+<body>
+  <button onclick="generateLocation();">Generate Location</button>
+  
+  <br><br>
+  
+  <span id="locationText">Location:</span>
+  
+  <script>
+    let includeAreas = [
+      [[-1988, -2495], [1031, 1312]],
+      [[525, 2424], [681, 2576]],
+      [[-552, 1823], [-450, 1899]]
+    ];
+    let excludeAreas = [
+      [[-1754, -1179], [-1411, -661]],
+      [[-1301, -1023], [-1104, -331]]
+    ];
+    
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  
+    function generateLocation() {
+      let areaWeights = [];
+      for (let i = 0; i < includeAreas.length; i++) {
+        let a = includeAreas[i];
+        let weight = (a[1][1] - a[0][1]) * (a[1][0] - a[0][0]);
+        if (i == 0) {
+          areaWeights.push(weight);
+        } else {
+          areaWeights.push(weight + areaWeights[areaWeights.length - 1]);
+        }
+      }
+      let areaSelectionValue = getRandomInt(0, areaWeights[areaWeights.length - 1]);
+      let selectedArea;
+      for (let i = 0; i < areaWeights.length; i++) {
+        if (areaSelectionValue <= areaWeights[i]) {
+          selectedArea = i;
+          break;
+        }
+      }
+      locationText.innerHTML = selectedArea;
+    }
+  </script>
+</body>
+
+</html>
