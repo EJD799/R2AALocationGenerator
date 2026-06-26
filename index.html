@@ -25,9 +25,9 @@
       [[-1301, -1023], [-1104, -331]]
     ];
     let areaWeights = [
-      8,
-      2,
-      1
+      8, // 8
+      10, // 2
+      11 // 1
     ];
     let areaNames = [
       "LARC",
@@ -44,6 +44,7 @@
       for (let i = 0; i < excludeAreas.length; i++) {
         let e = excludeAreas[i];
         if ((x >= e[0][0]) && (x <= e[0][1]) && (z >= e[1][0]) && (z <= e[1][1])) {
+          console.log("location excluded - regenerating");
           return false;
         }
       }
@@ -51,16 +52,6 @@
     }
   
     function generateLocation() {
-      /*let areaWeights = [];
-      for (let i = 0; i < includeAreas.length; i++) {
-        let a = includeAreas[i];
-        let weight = (a[1][1] - a[0][1]) * (a[1][0] - a[0][0]);
-        if (i == 0) {
-          areaWeights.push(weight);
-        } else {
-          areaWeights.push(weight + areaWeights[areaWeights.length - 1]);
-        }
-      }*/
       let areaSelectionValue = getRandomInt(0, areaWeights[areaWeights.length - 1]);
       let selectedArea;
       for (let i = 0; i < areaWeights.length; i++) {
