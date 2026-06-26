@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>R2AA Location Generator</title>
+</head>
+
+<body>
+  <button onclick="generateLocation();">Generate Location</button>
+  
+  <br><br>
+  
+  <span id="locationText">Press the button above to generate a location.</span>
+  
+  <script>
+    let includeAreas = [
+      [[-1988, -2495], [1031, 1312]],
+      [[525, 2424], [681, 2576]],
+      [[-552, 1823], [-450, 1899]]
+    ];
+    let excludeAreas = [
+      [[-1754, -1179], [-1411, -661]],
+      [[-1301, -1023], [-1104, -331]]
+    ];
+    let areaWeights = [
+      8,
+      2,
+      1
+    ];
+    let areaNames = [
+      "LARC",
+      "Riverside Village",
+      "Lavacliff Village",
+      "Desert City"
+    ];
+    
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    
+    function checkExclusions(x, z) {
+      for (let i = 0; i < excludeAreas.length; i++) {
+        let e = excludeAreas[i];
+        if ((x >= e[0][0]) && (x <= e[0][1]) && (z >= e[1][0]) && (z <= e[1][1])) {
+          return false;
+        }
+      }
+      return true;
+    }
+  
+    function generateLocation() {
+      /*let areaWeights = [];
+      for (let i = 0; i < includeAreas.length; i++) {
+        let a = includeAreas[i];
+        let weight = (a[1][1] - a[0][1]) * (a[1][0] - a[0][0]);
+        if (i == 0) {
+          areaWeights.push(weight);
+        } else {
+          areaWeights.push(weight + areaWeights[areaWeights.length - 1]);
+        }
+      }*/
+      let areaSelectionValue = getRandomInt(0, areaWeights[areaWeights.length - 1]);
+      let selectedArea;
+      for (let i = 0; i < areaWeights.length; i++) {
+        if (areaSelectionValue <= areaWeights[i]) {
+          selectedArea = i;
+          break;
+        }
+      }
+      
+      let finalX = getRandomInt(includeAreas[selectedArea][0][0], includeAreas[selectedArea][0][1]);
+      let finalZ = getRandomInt(includeAreas[selectedArea][1][0], includeAreas[selectedArea][1][1]);
+      
+      if (!checkExclusions(finalX, finalZ)) {
+        generateLocation();
+        return;
+      }
+      
+      locationText.innerHTML = `X: ${finalX}, Z: ${finalZ} (${areaNames[selectedArea]})`;
+    }
+  </script>
+</body>
+
+</html>
