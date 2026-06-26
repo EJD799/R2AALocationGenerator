@@ -5,14 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>R2AA Location Generator</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
 </head>
 
 <body>
-  <button onclick="generateLocation();">Generate Location</button>
+  <center>
+    <h3 class="title is-3">R2AA Location Generator</h3>
   
-  <br><br>
+    <button class="button is-primary" onclick="generateLocation();">Generate Location</button>
   
-  <span id="locationText">Press the button above to generate a location.</span>
+    <br><br>
+  
+    <span id="locationText">Press the button above to generate a location.</span>
+  </center>
   
   <script>
     let includeAreas = [
