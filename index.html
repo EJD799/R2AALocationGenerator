@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,10 +12,19 @@
   <span id="locationText">Location:</span>
   
   <script>
+    let includeAreas = [
+      [[-1988, -2495], [1031, 1312]],
+      [[525, 2424], [681, 2576]],
+      [[-552, 1823], [-450, 1899]]
+    ];
+    let excludeAreas = [
+      [[-1754, -1179], [-1411, -661]],
+      [[-1301, -1023], [-1104, -331]]
+    ];
+  
     function generateLocation() {
       locationText.innerHTML = "test";
     }
   </script>
 </body>
 
-</html>
